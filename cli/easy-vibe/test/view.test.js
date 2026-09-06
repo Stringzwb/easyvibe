@@ -36,3 +36,29 @@ test("view server starts from a project without an Easy Vibe marker", async () =
     }
   });
 });
+
+test("view snapshot keeps loading when a new Step directory has no step.json yet", async () => {
+  await withTemporaryDirectory(async (directory) => {
+    await mkdir(path.join(directory, "view"), { recursive: true });
+    await mkdir(path.join(directory, "workflow", "steps", "data-acquisition"), { recursive: true });
+    await writeFile(path.join(directory, "view", "index.html"), "<!doctype html><title>view</title>", "utf8");
+    await writeFile(path.join(directory, "workflow", "workflows.json"), JSON.stringify({ workflows: [] }), "utf8");
+
+    const started = await startViewServer({ projectPath: directory, port: 0 });
+    const previousDocument = globalThis.document;
+    globalThis.document = { baseURI: started.url, body: { dataset: { projectRoot: "../" } } };
+    try {
+      const { createSnapshot } = await import(`../../../view-src/src/data/projectSnapshot.js?test=${Date.now()}`);
+      const snapshot = await createSnapshot();
+      const step = snapshot.steps.find((item) => item.id === "data-acquisition");
+
+      assert.ok(step);
+      assert.equal(step.available, false);
+      assert.equal(step.name, "Step 创建中");
+      assert.ok(snapshot.warnings.some((warning) => warning.includes("workflow/steps/data-acquisition/step.json")));
+    } finally {
+      globalThis.document = previousDocument;
+      await new Promise((resolve) => started.server.close(resolve));
+    }
+  });
+});

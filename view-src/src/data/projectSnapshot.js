@@ -26,7 +26,7 @@ const CORE_FILES = [
   ["deploy/safe.json", "总安全策略"]
 ].map(([path, label]) => ({ path, label }));
 
-export const STATUS_LABELS = { planned: "计划中", in_progress: "进行中", blocked: "阻塞", interrupted: "已中断", completed: "已完成", cancelled: "已取消", active: "进行中", queued: "待开始", untracked: "未跟踪", missing: "缺失", unknown: "未定义" };
+export const STATUS_LABELS = { planned: "计划中", in_progress: "进行中", blocked: "阻塞", interrupted: "已中断", completed: "已完成", cancelled: "已取消", active: "进行中", queued: "待开始", loading: "创建中", untracked: "未跟踪", missing: "缺失", unknown: "未定义" };
 
 export async function createSnapshot() {
   const warnings = [];
@@ -58,6 +58,7 @@ export async function createSnapshot() {
     tasksByStatus: countBy(works.flatMap((work) => work.tasks), "status")
   };
   const workflows = workflowConfig.workflows.map((workflow) => ({ ...workflow, nodes: Array.isArray(workflow.nodes) ? workflow.nodes : [], transitions: Array.isArray(workflow.transitions) ? workflow.transitions : [] }));
+  ensureWorkflowSteps(workflows, steps, warnings);
   const activeWork = works.find((work) => !["completed", "cancelled"].includes(work.status) && workflows.some((workflow) => workflow.id === work.workflow_id));
   return {
     project: { rootName: PROJECT_ROOT_NAME, title: firstHeading(readme) || PROJECT_ROOT_NAME, agentEntry: "guide/README.md", lastUpdated: latestDate([...works.flatMap((work) => [work.updated_at, ...work.tasks.map((task) => task.updated_at)]), ...bugs.all.map((bug) => bug.updated_date)]) },
@@ -70,17 +71,59 @@ export async function createSnapshot() {
 
 async function readSteps(warnings) {
   const directory = await getDirectoryOptional(["workflow", "steps"]);
-  if (!directory) throw new Error("项目缺少 workflow/steps 目录，无法确认 Step 规则");
-  if (!directory.listable) throw new Error("无法列出 workflow/steps 目录，请从项目根启动支持目录索引的静态服务器");
+  if (!directory) {
+    warnings.push("项目缺少 workflow/steps 目录，Step 数据暂不可用");
+    return [];
+  }
+  if (!directory.listable) {
+    warnings.push("无法列出 workflow/steps 目录，Step 数据暂不可用");
+    return [];
+  }
   const steps = [];
   for (const [id, entry] of directory.entries) {
     if (entry.kind !== "directory") continue;
-    const definition = await readJsonRequired(["workflow", "steps", id, "step.json"], `workflow/steps/${id}/step.json`);
-    const specificationText = await readOptionalText(["spec", "steps", id, "README.md"]);
-    if (!specificationText) warnings.push(`缺少 Step 规约：spec/steps/${id}/README.md`);
-    steps.push({ ...definition, id: definition.id || id, spec: summarizeRuleFile(specificationText, id, `spec/steps/${id}/README.md`) });
+    const definitionPath = `workflow/steps/${id}/step.json`;
+    try {
+      const definition = await readJsonRequired(["workflow", "steps", id, "step.json"], definitionPath);
+      const specificationText = await readOptionalText(["spec", "steps", id, "README.md"]);
+      if (!specificationText) warnings.push(`缺少 Step 规约：spec/steps/${id}/README.md`);
+      steps.push({ ...definition, id: definition.id || id, spec: summarizeRuleFile(specificationText, id, `spec/steps/${id}/README.md`) });
+    } catch (error) {
+      warnings.push(`${definitionPath} 暂不可用：${error.message}`);
+      steps.push(createUnavailableStep(id, definitionPath, error.message));
+    }
   }
   return steps.sort((left, right) => left.id.localeCompare(right.id));
+}
+
+function createUnavailableStep(id, filePath, error) {
+  return {
+    id,
+    name: "Step 创建中",
+    description: "该 Step 目录已出现，但运行定义尚未准备完成。工作台会在下一次同步时重新读取。",
+    status: "loading",
+    available: false,
+    error,
+    safety: { riskLevel: "未读取" },
+    paths: { read: [], write: [] },
+    files: { run: filePath },
+    spec: summarizeRuleFile(null, id, `spec/steps/${id}/README.md`)
+  };
+}
+
+function ensureWorkflowSteps(workflows, steps, warnings) {
+  const known = new Set(steps.map((step) => step.id));
+  for (const workflow of workflows) {
+    for (const node of workflow.nodes) {
+      const id = node?.step;
+      if (!id || known.has(id)) continue;
+      const filePath = `workflow/steps/${id}/step.json`;
+      steps.push(createUnavailableStep(id, filePath, "Step 目录或运行定义尚未创建"));
+      warnings.push(`工作流 ${workflow.id} 引用了尚未准备好的 Step：${filePath}`);
+      known.add(id);
+    }
+  }
+  steps.sort((left, right) => left.id.localeCompare(right.id));
 }
 
 async function readStatus(warnings) {
