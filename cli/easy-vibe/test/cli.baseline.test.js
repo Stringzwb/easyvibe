@@ -29,7 +29,7 @@ async function withTempDirectory(run) {
 
 test("CLI --version prints the current version", async () => {
   const { stdout, stderr } = await runCli(["--version"]);
-  assert.match(stdout, /^0\.5\.0\n?$/);
+  assert.match(stdout, /^0\.5\.1\n?$/);
   assert.equal(stderr, "");
 });
 

@@ -1,3 +1,12 @@
+const LOGO = String.raw`  ______                __     __ _ _
+ |  ____|               \ \   / /(_) |
+ | |__   __ _ ___ _   _  \ \_/ /  _| |__   ___
+ |  __| / _\` / __| | | |  \   /  | | '_ \ / _ \
+ | |___| (_| \__ \ |_| |   \ /   | | |_) |  __/
+ |______\__,_|___/\__, |    V    |_|_.__/ \___|
+                   __/ |
+                  |___/`.split("\n").map((line) => line.replaceAll("\\`", "`"));
+
 const COLORS = {
   cyan: 36,
   blue: 34,
@@ -21,8 +30,11 @@ export function createUi(output) {
   return {
     banner() {
       write();
-      write(`${paint("cyan", "◆", true)} ${paint("white", "EASY VIBE", true)}`);
-      write(paint("gray", "  PROJECT WORKSPACE  ·  SAFE CONTEXT  ·  READ-ONLY FACTS"));
+      LOGO.forEach((line, index) => {
+        const color = index < 3 ? "cyan" : index < 6 ? "blue" : "magenta";
+        write(paint(color, line, true));
+      });
+      write(paint("gray", "  ◆ PROJECT WORKSPACE  ·  SAFE CONTEXT  ·  CLEAR FLOW"));
       write();
     },
     section(title, subtitle) {
