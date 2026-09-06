@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "resource": "ssh",
+  "defaultEnvironment": "staging",
+  "environments": [
+    {
+      "id": "local",
+      "file": "local.example.json",
+      "enabled": false,
+      "level": "readonly",
+      "agents": []
+    },
+    {
+      "id": "test",
+      "file": "test.example.json",
+      "enabled": false,
+      "level": "readonly",
+      "agents": []
+    },
+    {
+      "id": "staging",
+      "file": "staging.example.json",
+      "enabled": true,
+      "level": "deployment",
+      "agents": [
+        "codex"
+      ]
+    },
+    {
+      "id": "production",
+      "file": "production.example.json",
+      "enabled": false,
+      "level": "readonly",
+      "agents": []
+    }
+  ]
+}

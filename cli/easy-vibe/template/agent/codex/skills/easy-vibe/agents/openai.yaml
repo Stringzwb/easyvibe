@@ -1,0 +1,4 @@
+interface:
+  display_name: "Easy Vibe"
+  short_description: "Enter and operate Easy Vibe project workflows"
+  default_prompt: "Use $easy-vibe to enter this initialized project and follow its declared Agent workflow."

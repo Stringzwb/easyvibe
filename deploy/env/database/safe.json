@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "resource": "database",
+  "defaultEnvironment": "local",
+  "environments": [
+    {
+      "id": "local",
+      "file": "local.example.json",
+      "enabled": true,
+      "level": "development",
+      "agents": [
+        "codex",
+        "claudecode"
+      ]
+    },
+    {
+      "id": "test",
+      "file": "test.example.json",
+      "enabled": true,
+      "level": "readonly",
+      "agents": [
+        "codex",
+        "claudecode"
+      ]
+    },
+    {
+      "id": "staging",
+      "file": "staging.example.json",
+      "enabled": true,
+      "level": "deployment",
+      "agents": [
+        "codex"
+      ]
+    },
+    {
+      "id": "production",
+      "file": "production.example.json",
+      "enabled": false,
+      "level": "readonly",
+      "agents": []
+    }
+  ]
+}

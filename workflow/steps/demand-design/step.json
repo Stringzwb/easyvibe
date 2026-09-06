@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "id": "demand-design",
+  "name": "需求设计",
+  "description": "把用户目标整理为边界明确、可实现、可验收的需求。",
+  "paths": {
+    "read": [
+      "/README.md",
+      "/guide",
+      "/docs",
+      "/status",
+      "/code"
+    ],
+    "write": [
+      "/docs/demand",
+      "/status"
+    ]
+  },
+  "safety": {
+    "inherits": "/deploy/safe.json",
+    "precedence": "conversation-user-rules > project-general-rules > step-rules",
+    "riskLevel": "low"
+  }
+}

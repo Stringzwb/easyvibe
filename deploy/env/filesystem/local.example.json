@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "resource": "filesystem",
+  "environment": "local",
+  "description": "本地工作空间",
+  "root": "../../",
+  "paths": {
+    "read": [
+      "/docs",
+      "/deploy",
+      "/workflow"
+    ],
+    "write": [
+      "/docs",
+      "/deploy/log"
+    ]
+  }
+}

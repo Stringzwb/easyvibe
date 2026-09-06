@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "resource": "ssh",
+  "environment": "staging",
+  "host": "staging.example.invalid",
+  "port": 22,
+  "user": "deploy",
+  "identityFile": "~/.ssh/id_ed25519",
+  "credentialRef": "env:SSH_KEY"
+}

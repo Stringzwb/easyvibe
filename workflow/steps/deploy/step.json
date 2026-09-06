@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "id": "deploy",
+  "name": "部署",
+  "description": "把已验证制品安全发布到明确授权的环境并保留完整记录。",
+  "paths": {
+    "read": [
+      "/deploy/artifact",
+      "/deploy/env",
+      "/deploy/info",
+      "/command/deploy",
+      "/docs/test",
+      "/status"
+    ],
+    "write": [
+      "/deploy/log",
+      "/status"
+    ]
+  },
+  "safety": {
+    "inherits": "/deploy/safe.json",
+    "precedence": "conversation-user-rules > project-general-rules > step-rules",
+    "riskLevel": "critical"
+  }
+}

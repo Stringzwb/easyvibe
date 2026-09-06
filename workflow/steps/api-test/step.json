@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "id": "api-test",
+  "name": "API 调用测试",
+  "description": "验证接口契约、鉴权、错误处理和集成行为，同时保护环境与测试数据。",
+  "paths": {
+    "read": [
+      "/docs/demand",
+      "/docs/design",
+      "/docs/test",
+      "/code",
+      "/command/service",
+      "/deploy/env",
+      "/status"
+    ],
+    "write": [
+      "/docs/test",
+      "/docs/bug",
+      "/status"
+    ]
+  },
+  "safety": {
+    "inherits": "/deploy/safe.json",
+    "precedence": "conversation-user-rules > project-general-rules > step-rules",
+    "riskLevel": "high"
+  }
+}

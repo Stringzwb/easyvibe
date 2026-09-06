@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "id": "project-info-approval",
+  "name": "项目基本信息核准",
+  "description": "在项目工作开始前核准项目名称，并为所有可生成文档建立经用户确认的命名规范。",
+  "paths": {
+    "read": [
+      "/README.md",
+      "/docs",
+      "/deploy",
+      "/spec",
+      "/workflow",
+      "/status"
+    ],
+    "write": [
+      "/README.md",
+      "/spec/namespec.md",
+      "/status"
+    ]
+  },
+  "safety": {
+    "inherits": "/deploy/safe.json",
+    "precedence": "conversation-user-rules > project-general-rules > step-rules",
+    "riskLevel": "low"
+  }
+}

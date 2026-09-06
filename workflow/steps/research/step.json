@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "id": "research",
+  "name": "调研",
+  "description": "通过可追溯资料和受控验证降低需求与技术决策的不确定性。",
+  "paths": {
+    "read": [
+      "/README.md",
+      "/guide",
+      "/docs",
+      "/code",
+      "/data",
+      "/deploy/info",
+      "/status"
+    ],
+    "write": [
+      "/docs/design",
+      "/docs/record",
+      "/status"
+    ]
+  },
+  "safety": {
+    "inherits": "/deploy/safe.json",
+    "precedence": "conversation-user-rules > project-general-rules > step-rules",
+    "riskLevel": "medium"
+  }
+}

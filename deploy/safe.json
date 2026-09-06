@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "rulePrecedence": [
+    "conversation-user-rules",
+    "project-general-rules",
+    "step-rules"
+  ],
+  "principles": [
+    {
+      "id": "SAFE-001",
+      "name": "保护凭证与敏感数据",
+      "requirement": "不得保存或泄露密码、Token、私钥以及未经授权的个人和生产数据。"
+    },
+    {
+      "id": "SAFE-002",
+      "name": "默认最小权限",
+      "requirement": "只访问当前任务需要的资源、环境和路径，不静默扩大权限范围。"
+    },
+    {
+      "id": "SAFE-003",
+      "name": "高风险操作先确认",
+      "requirement": "删除、覆盖、生产变更、付费、通知和其他难以恢复的操作必须先确认目标与影响。"
+    },
+    {
+      "id": "SAFE-004",
+      "name": "外部系统必须授权",
+      "requirement": "连接数据库、SSH、远程仓库、外部 API 或上传项目内容前必须确认环境和授权。"
+    },
+    {
+      "id": "SAFE-005",
+      "name": "保留验证与审计记录",
+      "requirement": "关键修改、测试、打包和部署必须留下可核对的结果，未验证内容不得标记为完成。"
+    },
+    {
+      "id": "SAFE-006",
+      "name": "安全规则按新指令更新",
+      "requirement": "Step 规则与总规则冲突时使用总规则；用户在对话中新提出的安全规则优先于项目总规则。"
+    }
+  ],
+  "defaultLevel": "readonly",
+  "levels": {
+    "readonly": {
+      "description": "只读审阅，默认禁止外部写操作",
+      "resources": {
+        "filesystem": {
+          "read": true,
+          "write": false,
+          "code": {
+            "modify": false
+          }
+        },
+        "git": {
+          "read": true,
+          "commit": false,
+          "push": false
+        },
+        "ssh": {
+          "connect": false
+        },
+        "database": {
+          "read": false,
+          "write": false
+        }
+      }
+    },
+    "development": {
+      "description": "本地开发，可修改代码和提交本地 Git，不允许推送",
+      "resources": {
+        "filesystem": {
+          "read": true,
+          "write": true,
+          "code": {
+            "modify": true
+          }
+        },
+        "git": {
+          "read": true,
+          "commit": true,
+          "push": false
+        },
+        "ssh": {
+          "connect": false
+        },
+        "database": {
+          "read": true,
+          "write": true
+        }
+      }
+    },
+    "deployment": {
+      "description": "部署操作，可连接白名单主机并读取目标数据库",
+      "resources": {
+        "filesystem": {
+          "read": true,
+          "write": true,
+          "code": {
+            "modify": false
+          }
+        },
+        "git": {
+          "read": true,
+          "commit": false,
+          "push": false
+        },
+        "ssh": {
+          "connect": true
+        },
+        "database": {
+          "read": true,
+          "write": false
+        }
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "filesystem",
+      "index": "env/filesystem/safe.json"
+    },
+    {
+      "type": "git",
+      "index": "env/git/safe.json"
+    },
+    {
+      "type": "ssh",
+      "index": "env/ssh/safe.json"
+    },
+    {
+      "type": "database",
+      "index": "env/database/safe.json"
+    }
+  ]
+}

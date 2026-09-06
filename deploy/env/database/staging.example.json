@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "resource": "database",
+  "environment": "staging",
+  "driver": "postgres",
+  "host": "staging-db.example.invalid",
+  "port": 5432,
+  "name": "easy_vibe",
+  "user": "deploy",
+  "credentialRef": "env:DB_PASSWORD"
+}

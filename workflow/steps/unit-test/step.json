@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "id": "unit-test",
+  "name": "单元测试",
+  "description": "以隔离、快速、可重复的测试验证最小代码单元和关键边界。",
+  "paths": {
+    "read": [
+      "/docs/demand",
+      "/docs/design",
+      "/code",
+      "/data/datasets",
+      "/status"
+    ],
+    "write": [
+      "/code",
+      "/docs/test",
+      "/docs/bug",
+      "/status"
+    ]
+  },
+  "safety": {
+    "inherits": "/deploy/safe.json",
+    "precedence": "conversation-user-rules > project-general-rules > step-rules",
+    "riskLevel": "low"
+  }
+}

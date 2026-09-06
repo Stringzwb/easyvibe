@@ -1,0 +1,387 @@
+{
+  "version": 1,
+  "workflows": [
+    {
+      "id": "fullstack-feature",
+      "name": "全栈功能开发",
+      "description": "从需求、调研和 UI 设计到开发、测试、打包与部署的完整流程。",
+      "entry": "project-information",
+      "nodes": [
+        {
+          "id": "project-information",
+          "step": "project-info-approval"
+        },
+        {
+          "id": "requirements",
+          "step": "demand-design"
+        },
+        {
+          "id": "research",
+          "step": "research"
+        },
+        {
+          "id": "ui",
+          "step": "ui-design"
+        },
+        {
+          "id": "implementation",
+          "step": "coding"
+        },
+        {
+          "id": "unit-tests",
+          "step": "unit-test"
+        },
+        {
+          "id": "api-tests",
+          "step": "api-test"
+        },
+        {
+          "id": "functional-tests",
+          "step": "functional-test"
+        },
+        {
+          "id": "package",
+          "step": "package"
+        },
+        {
+          "id": "deploy",
+          "step": "deploy"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "project-information",
+          "to": "requirements",
+          "when": "项目基本信息与命名规范已核准"
+        },
+        {
+          "from": "requirements",
+          "to": "research"
+        },
+        {
+          "from": "research",
+          "to": "ui"
+        },
+        {
+          "from": "ui",
+          "to": "implementation"
+        },
+        {
+          "from": "implementation",
+          "to": "unit-tests"
+        },
+        {
+          "from": "unit-tests",
+          "to": "api-tests",
+          "when": "单元测试通过"
+        },
+        {
+          "from": "unit-tests",
+          "to": "implementation",
+          "when": "单元测试失败"
+        },
+        {
+          "from": "api-tests",
+          "to": "functional-tests",
+          "when": "API 测试通过"
+        },
+        {
+          "from": "api-tests",
+          "to": "implementation",
+          "when": "API 问题需要修复"
+        },
+        {
+          "from": "functional-tests",
+          "to": "package",
+          "when": "功能测试通过"
+        },
+        {
+          "from": "functional-tests",
+          "to": "implementation",
+          "when": "功能测试失败"
+        },
+        {
+          "from": "package",
+          "to": "deploy",
+          "when": "用户确认部署"
+        }
+      ]
+    },
+    {
+      "id": "backend-feature",
+      "name": "后端功能开发",
+      "description": "适用于 Python、Java 等后端服务的需求、调研、实现、测试和发布。",
+      "entry": "project-information",
+      "nodes": [
+        {
+          "id": "project-information",
+          "step": "project-info-approval"
+        },
+        {
+          "id": "requirements",
+          "step": "demand-design"
+        },
+        {
+          "id": "research",
+          "step": "research"
+        },
+        {
+          "id": "implementation",
+          "step": "coding"
+        },
+        {
+          "id": "unit-tests",
+          "step": "unit-test"
+        },
+        {
+          "id": "api-tests",
+          "step": "api-test"
+        },
+        {
+          "id": "functional-tests",
+          "step": "functional-test"
+        },
+        {
+          "id": "package",
+          "step": "package"
+        },
+        {
+          "id": "deploy",
+          "step": "deploy"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "project-information",
+          "to": "requirements",
+          "when": "项目基本信息与命名规范已核准"
+        },
+        {
+          "from": "requirements",
+          "to": "research"
+        },
+        {
+          "from": "research",
+          "to": "implementation"
+        },
+        {
+          "from": "implementation",
+          "to": "unit-tests"
+        },
+        {
+          "from": "unit-tests",
+          "to": "api-tests",
+          "when": "单元测试通过"
+        },
+        {
+          "from": "unit-tests",
+          "to": "implementation",
+          "when": "单元测试失败"
+        },
+        {
+          "from": "api-tests",
+          "to": "functional-tests",
+          "when": "API 测试通过"
+        },
+        {
+          "from": "api-tests",
+          "to": "implementation",
+          "when": "API 问题需要修复"
+        },
+        {
+          "from": "functional-tests",
+          "to": "package",
+          "when": "功能测试通过"
+        },
+        {
+          "from": "functional-tests",
+          "to": "implementation",
+          "when": "功能测试失败"
+        },
+        {
+          "from": "package",
+          "to": "deploy",
+          "when": "用户确认部署"
+        }
+      ]
+    },
+    {
+      "id": "frontend-feature",
+      "name": "前端功能开发",
+      "description": "适用于包含界面与接口集成的前端功能开发。",
+      "entry": "project-information",
+      "nodes": [
+        {
+          "id": "project-information",
+          "step": "project-info-approval"
+        },
+        {
+          "id": "requirements",
+          "step": "demand-design"
+        },
+        {
+          "id": "research",
+          "step": "research"
+        },
+        {
+          "id": "ui",
+          "step": "ui-design"
+        },
+        {
+          "id": "implementation",
+          "step": "coding"
+        },
+        {
+          "id": "unit-tests",
+          "step": "unit-test"
+        },
+        {
+          "id": "api-tests",
+          "step": "api-test"
+        },
+        {
+          "id": "functional-tests",
+          "step": "functional-test"
+        },
+        {
+          "id": "package",
+          "step": "package"
+        },
+        {
+          "id": "deploy",
+          "step": "deploy"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "project-information",
+          "to": "requirements",
+          "when": "项目基本信息与命名规范已核准"
+        },
+        {
+          "from": "requirements",
+          "to": "research"
+        },
+        {
+          "from": "research",
+          "to": "ui"
+        },
+        {
+          "from": "ui",
+          "to": "implementation"
+        },
+        {
+          "from": "implementation",
+          "to": "unit-tests"
+        },
+        {
+          "from": "unit-tests",
+          "to": "api-tests",
+          "when": "单元测试通过"
+        },
+        {
+          "from": "unit-tests",
+          "to": "implementation",
+          "when": "单元测试失败"
+        },
+        {
+          "from": "api-tests",
+          "to": "functional-tests",
+          "when": "接口集成通过"
+        },
+        {
+          "from": "api-tests",
+          "to": "implementation",
+          "when": "接口集成失败"
+        },
+        {
+          "from": "functional-tests",
+          "to": "package",
+          "when": "功能测试通过"
+        },
+        {
+          "from": "functional-tests",
+          "to": "implementation",
+          "when": "功能测试失败"
+        },
+        {
+          "from": "package",
+          "to": "deploy",
+          "when": "用户确认部署"
+        }
+      ]
+    },
+    {
+      "id": "discovery-design",
+      "name": "需求调研与设计",
+      "description": "在进入开发前完成需求、技术调研和 UI 设计。",
+      "entry": "project-information",
+      "nodes": [
+        {
+          "id": "project-information",
+          "step": "project-info-approval"
+        },
+        {
+          "id": "requirements",
+          "step": "demand-design"
+        },
+        {
+          "id": "research",
+          "step": "research"
+        },
+        {
+          "id": "ui",
+          "step": "ui-design"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "project-information",
+          "to": "requirements",
+          "when": "项目基本信息与命名规范已核准"
+        },
+        {
+          "from": "requirements",
+          "to": "research"
+        },
+        {
+          "from": "research",
+          "to": "ui",
+          "when": "需要界面设计"
+        }
+      ]
+    },
+    {
+      "id": "release-deployment",
+      "name": "发布与部署",
+      "description": "对已有候选版本执行功能验证、打包和受控部署。",
+      "entry": "functional-tests",
+      "nodes": [
+        {
+          "id": "functional-tests",
+          "step": "functional-test"
+        },
+        {
+          "id": "package",
+          "step": "package"
+        },
+        {
+          "id": "deploy",
+          "step": "deploy"
+        }
+      ],
+      "transitions": [
+        {
+          "from": "functional-tests",
+          "to": "package",
+          "when": "功能测试通过"
+        },
+        {
+          "from": "package",
+          "to": "deploy",
+          "when": "用户确认部署"
+        }
+      ]
+    }
+  ]
+}

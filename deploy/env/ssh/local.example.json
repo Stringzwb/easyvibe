@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "resource": "ssh",
+  "environment": "local",
+  "host": "127.0.0.1",
+  "port": 22,
+  "user": "",
+  "identityFile": "~/.ssh/id_ed25519",
+  "credentialRef": "env:SSH_KEY"
+}

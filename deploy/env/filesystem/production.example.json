@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "resource": "filesystem",
+  "environment": "production",
+  "description": "生产工作空间占位配置",
+  "root": "../../",
+  "paths": {
+    "read": [
+      "/deploy"
+    ],
+    "write": []
+  }
+}

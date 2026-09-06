@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "resource": "filesystem",
+  "environment": "test",
+  "description": "测试工作空间",
+  "root": "../../",
+  "paths": {
+    "read": [
+      "/docs",
+      "/data",
+      "/workflow"
+    ],
+    "write": []
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "resource": "database",
+  "environment": "test",
+  "driver": "postgres",
+  "host": "127.0.0.1",
+  "port": 5432,
+  "name": "easy_vibe_test",
+  "user": "easy_vibe",
+  "credentialRef": "env:DB_PASSWORD"
+}

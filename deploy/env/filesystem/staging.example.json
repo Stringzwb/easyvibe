@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "resource": "filesystem",
+  "environment": "staging",
+  "description": "预发布工作空间占位配置",
+  "root": "../../",
+  "paths": {
+    "read": [
+      "/deploy",
+      "/workflow"
+    ],
+    "write": [
+      "/deploy/log"
+    ]
+  }
+}

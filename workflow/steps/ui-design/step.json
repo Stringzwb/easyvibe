@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "id": "ui-design",
+  "name": "UI 设计",
+  "description": "把需求转换为清晰、可访问、可实现的界面与交互设计。",
+  "paths": {
+    "read": [
+      "/docs/demand",
+      "/docs/design",
+      "/code",
+      "/data/static",
+      "/guide",
+      "/status"
+    ],
+    "write": [
+      "/docs/design",
+      "/data/static",
+      "/status"
+    ]
+  },
+  "safety": {
+    "inherits": "/deploy/safe.json",
+    "precedence": "conversation-user-rules > project-general-rules > step-rules",
+    "riskLevel": "low"
+  }
+}

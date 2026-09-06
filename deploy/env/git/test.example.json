@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "resource": "git",
+  "environment": "test",
+  "provider": "git",
+  "repository": "../../",
+  "defaultBranch": "main",
+  "credentialRef": "env:GIT_TOKEN"
+}

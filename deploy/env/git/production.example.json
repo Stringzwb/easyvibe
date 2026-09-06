@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "resource": "git",
+  "environment": "production",
+  "provider": "git",
+  "repository": "../../",
+  "defaultBranch": "main",
+  "credentialRef": "env:GIT_TOKEN"
+}

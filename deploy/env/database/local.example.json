@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "resource": "database",
+  "environment": "local",
+  "driver": "sqlite",
+  "path": "../../data/local.sqlite3",
+  "credentialRef": "env:DB_PASSWORD"
+}

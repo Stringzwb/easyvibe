@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "id": "package",
+  "name": "项目打包",
+  "description": "以可重复方式生成来源明确、内容安全、可验证的交付制品。",
+  "paths": {
+    "read": [
+      "/README.md",
+      "/code",
+      "/docs/test",
+      "/command",
+      "/deploy/info",
+      "/status"
+    ],
+    "write": [
+      "/deploy/artifact",
+      "/status"
+    ]
+  },
+  "safety": {
+    "inherits": "/deploy/safe.json",
+    "precedence": "conversation-user-rules > project-general-rules > step-rules",
+    "riskLevel": "medium"
+  }
+}

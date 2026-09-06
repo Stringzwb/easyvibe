@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "id": "coding",
+  "name": "代码开发",
+  "description": "按照已确认需求和设计实现范围受控、可维护、可验证的业务代码。",
+  "paths": {
+    "read": [
+      "/README.md",
+      "/guide",
+      "/docs",
+      "/code",
+      "/data",
+      "/command",
+      "/status"
+    ],
+    "write": [
+      "/code",
+      "/status"
+    ]
+  },
+  "safety": {
+    "inherits": "/deploy/safe.json",
+    "precedence": "conversation-user-rules > project-general-rules > step-rules",
+    "riskLevel": "medium"
+  }
+}
